@@ -1,0 +1,40 @@
+README
+
+a.Tyler Krauss
+b.6556701896
+
+c.I have completed all steps besides the optional part.
+
+d. My code files are:
+serverM.cpp
+serverM.h
+backendserver.cpp
+backendserver.h
+serverS.cpp
+serverD.cpp
+serverU.cpp
+client.cpp
+client.h
+
+backendserver is a class which contains all functionality for backendservers. The constructor takes in a room status file (suite.txt, single.txt, etc.), a port number to bind to,. and a char representing the server tpye (S,D,U). 
+serverS, serverD, serverU are instances of backendserver initialized with the appropriate room status files, ports, and server types.
+client contains all client functionality -- creates the socket, handles client input, communicates with serverM and displays results to client.
+serverM contains all serverM functionality as described in the assignment -- creates UDP socket for backend communciation and TCP socket (plus child sockets) for client communication, communicates with both clients and backendservers, handling communications with both.
+
+e. Username and password are concatenated and delimited by a comma. Username is passed in encrypted form to the server.
+Room codes are passed by serverM as integers. The room type (S,D,U) is read by serverM for redirection, but not sent to backend servers as serverM knows which server is for which room type.
+Query response messages (successful reservation, room unavailable, etc.) are represented as integers. These intgeres are exhcanged between servers and the client server interprets the integer to provide the appropriate message to the user. The possible messages can be seen in the header files.
+
+f. No known failures. ServerM does not forward requests to backendservers if it does not match the known room types (S, D, U). 
+Instead, directly sends a message to client. Back end servers are all instances of the same class initialized with different text files. 
+Usernames are stored in lowercase and converted to lowercase by the client to remove case sensitivity. 
+Structs are passed between servers to pass multiple data types directly to variables for storage.
+When prompting for room number, the client server does not send the query if it is with an invalid room code. (Ex: multiple letters in the room code "ST123, D12UP, etc."). This is because the room numbers are sent as integers for efficiency, however converting these room codes to integers will result in a crash.
+
+
+g. Reused code:
+
+I used the Beej manual to learn various socket programming methods. These include socket(), bind(), accept(), listen(), recv(), recvfrom(), sendto(), send(), etc. I also learned various tricks about socket programming including byte order conversions, different structs any much more. I left comments on code that was partially learned from Beej in serverM with the comment "//Learned from Beej". I avoided copying direct code and tried to understand the guide to avoid direct copying.
+
+
+
